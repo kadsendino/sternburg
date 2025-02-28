@@ -41,5 +41,31 @@ def stores_per_state(filename):
     print(state_counts)
     write_json(state_counts, "sternburg_states.json")
 
+def stores_per_county(filename):
+    data = read_json(filename)
+    county_counts = {}
+
+    for entry in data:
+        county = entry.get("location", {}).get("address",{}).get("county")
+        
+        if county == None:
+            county = entry.get("location", {}).get("address",{}).get("city")
+        
+        if county == None:
+            county = entry.get("location", {}).get("address",{}).get("town")
+
+
+        if county == None:
+            print(entry)
+
+        if county not in county_counts:
+
+            county_counts[county]=0
+        county_counts[county] += 1
+
+    county_counts = dict(reversed(sorted(county_counts.items(), key=lambda item: item[1])))
+    print(county_counts)
+    write_json(county_counts, "sternburg_counties.json")
+
 if __name__ == "__main__":
-    stores_per_state("sternburg_stores_expanded.json")
+    stores_per_county("sternburg_stores_expanded.json")
