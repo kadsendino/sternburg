@@ -124,7 +124,7 @@ legend_html = """
             }}
 
             #legend {{
-                top: 90px;
+                top: 95px;
                 height: 100px;
             }}
 
@@ -143,11 +143,11 @@ legend_html = """
     
     <div id="legend">
         <b>Anzahl der Geschäfte, in denen Sternburg gekauft werden kann</b><br>
-        <i style="background: #967676; width: 18px; height: 18px; display: inline-block;"></i> 0<br>
-        <i style="background: #9D6161; width: 18px; height: 18px; display: inline-block;"></i> 1 - 20<br>
-        <i style="background: #964747; width: 18px; height: 18px; display: inline-block;"></i> 21 - 50<br>
-        <i style="background: #8E1A1A; width: 18px; height: 18px; display: inline-block;"></i> 51 - 200<br>
-        <i style="background: #670A0A; width: 18px; height: 18px; display: inline-block;"></i> > 200
+        <i style="background: #967676;"></i> 0<br>
+        <i style="background: #9D6161;"></i> 1 - 20<br>
+        <i style="background: #964747;"></i> 21 - 50<br>
+        <i style="background: #8E1A1A;"></i> 51 - 200<br>
+        <i style="background: #670A0A;"></i> > 200
     </div>
     <div id="map-selector">
         <b>Karten-Auswahl</b><br><br>

@@ -105,7 +105,7 @@ legend_html = """
             }}
 
             #legend {{
-                top: 90px;
+                top: 95px;
                 height: 100px;
             }}
 
