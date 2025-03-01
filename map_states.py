@@ -63,45 +63,93 @@ folium.GeoJson(
     popup=folium.GeoJsonPopup(fields=['shapeName','value'], localize=True, labels=False)
 ).add_to(m)
 
-# Add custom legend
+
 legend_html = """
-    <div style="position: fixed; 
-                top: 150px; right: 50px; width: 200px; height: 200px; 
-                background-color: white; border:2px solid grey; z-index:9999; font-size:14px; padding: 10px;">
+    <style>
+        #legend, #map-selector {{
+            position: fixed;
+            background-color: white;
+            border: 2px solid grey;
+            z-index: 9999;
+            font-size: 14px;
+            padding: 10px;
+        }}
+
+        #legend {{
+            top: 150px; right: 50px; width: 200px; height: 200px;
+        }}
+
+        #legend i {{
+            width: 18px; height: 18px; display: inline-block;
+        }}
+
+        #map-selector {{
+            top: 10px; right: 50px; width: 200px; height: auto;
+            text-align: center;
+        }}
+
+        #map-selector button {{
+            width: 90%;
+            padding: 5px;
+            margin: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }}
+
+        @media (max-width: 600px) {{
+            #legend, #map-selector {{
+                width: 100px;
+                font-size: 7px;
+                padding: 5px;
+            }}
+
+            #legend {{
+                top: 90px;
+                height: 100px;
+            }}
+
+            #legend i {{
+                width: 9px;
+                height: 9px;
+            }}
+
+            #map-selector button {{
+                width: 90%;
+                padding: 3px;
+                font-size: 7px;
+            }}
+        }}
+    </style>
+    
+    <div id="legend">
         <b>Anzahl der Geschäfte, in denen Sternburg gekauft werden kann</b><br>
-        <i style="background: #967676; width: 18px; height: 18px; display: inline-block;"></i> 0<br>
-        <i style="background: #9D6161; width: 18px; height: 18px; display: inline-block;"></i> 1 - 20<br>
-        <i style="background: #964747; width: 18px; height: 18px; display: inline-block;"></i> 21 - 200<br>
-        <i style="background: #8E1A1A; width: 18px; height: 18px; display: inline-block;"></i> 201 - 1000<br>
-        <i style="background: #920303; width: 18px; height: 18px; display: inline-block;"></i> > 1000
+        <i style="background: #967676;"></i> 0<br>
+        <i style="background: #9D6161;"></i> 1 - 20<br>
+        <i style="background: #964747;"></i> 21 - 200<br>
+        <i style="background: #8E1A1A;"></i> 201 - 1000<br>
+        <i style="background: #920303;"></i> > 1000
     </div>
-"""
-# Map selection box (styled like the legend)
-map_switch_html = """
-    <div style="position: fixed; 
-                top: 10px; right: 50px; width: 200px; height: auto; 
-                background-color: white; border:2px solid grey; 
-                z-index:9999; font-size:14px; padding: 10px; text-align: center;">
+
+    <div id="map-selector">
         <b>Karten-Auswahl</b><br><br>
-        <button onclick="window.location.href='index.html'"
-                style="width: 90%; padding: 5px; margin: 5px; background-color: {index_color}; color: white; border: none; cursor: pointer;">
+        <button onclick="window.location.href='index.html'" 
+                style="background-color: {index_color};">
             Bundesländer
         </button>
-        <button onclick="window.location.href='map_counties.html'"
-                style="width: 90%; padding: 5px; margin: 5px; background-color: {other_color}; color: white; border: none; cursor: pointer;">
+        <button onclick="window.location.href='map_counties.html'" 
+                style="background-color: {other_color};">
             Landkreise
         </button>
     </div>
 """
 
-# Determine which map is active
+
 current_map = "index.html"  # Change this logic dynamically if needed
 index_color = "#8E1A1A" if current_map == "map_counties.html" else "#967676"
 other_color = "#8E1A1A" if current_map == "index.html" else "#967676"
 
-# Insert the formatted switcher HTML
-m.get_root().html.add_child(folium.Element(map_switch_html.format(index_color=index_color, other_color=other_color)))# Add the legend to the map as an HTML element
-m.get_root().html.add_child(folium.Element(legend_html))
-# Save the map
+m.get_root().html.add_child(folium.Element(legend_html.format(index_color=index_color, other_color=other_color)))
+
 m.save("index.html")
 print("map saved as index.html")
