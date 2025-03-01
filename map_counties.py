@@ -124,13 +124,13 @@ legend_html = """
             }}
 
             #legend {{
-                top: 95px;
+                top: 100px;
                 height: 100px;
             }}
 
             #legend i {{
                 width: 9px;
-                height: 9px;
+                height: auto;
             }}
 
             #map-selector button {{
