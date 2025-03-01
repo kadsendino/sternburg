@@ -47,13 +47,20 @@ def stores_per_county(filename):
 
     for entry in data:
         county = entry.get("location", {}).get("address",{}).get("county")
-        
+        if county == "Wartburgkreis" and entry.get("location", {}).get("address",{}).get("town") == "Eisenach":
+            county = "Eisenach, Kreisfreie Stadt"
+
         if county == None:
             county = entry.get("location", {}).get("address",{}).get("city")
         
         if county == None:
             county = entry.get("location", {}).get("address",{}).get("town")
-
+            if county != None:
+                county+=", Kreisfreie Stadt"
+                #print(county)
+        
+        if county == "Leipzig":
+            county = "Leipzig, Kreisfreie Stadt"
 
         if county == None:
             print(entry)
@@ -64,7 +71,6 @@ def stores_per_county(filename):
         county_counts[county] += 1
 
     county_counts = dict(reversed(sorted(county_counts.items(), key=lambda item: item[1])))
-    print(county_counts)
     write_json(county_counts, "sternburg_counties.json")
 
 if __name__ == "__main__":
